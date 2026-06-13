@@ -65,8 +65,8 @@ async function processMempoolPayload(tx: ethers.TransactionResponse) {
     pushLog("INFO", `Intercepted incoming transaction in block sequence from: ${tx.from}`);
     
     try {
-        const contractInitialBalance = await provider.getBalance(TARGET_CONTRACT_ADDRESS);
-        
+        // 1. Run the local simulation. 
+        // If the vault is empty or the hack is invalid, this crashes and goes to the 'catch' block.
         await provider.call({
             from: tx.from,
             to: tx.to,
@@ -74,14 +74,13 @@ async function processMempoolPayload(tx: ethers.TransactionResponse) {
             value: tx.value
         });
 
-        const contractExpectedBalance = await provider.getBalance(TARGET_CONTRACT_ADDRESS);
-        
-        if (contractInitialBalance > 0n && contractExpectedBalance === 0n) {
+        // 2. If the simulation succeeds AND contains malicious function data (not just a basic ETH transfer)
+        if (tx.data !== "0x") {
             pushLog("ALERT", `CRITICAL VULNERABILITY HIT DETECTED! Sender ${tx.from} attempts total pool drain.`);
             await triggerFrontrunAction(tx);
         }
     } catch (simulationRevert) {
-        // Transaction naturally reverts
+        // Transaction naturally reverts (e.g., they tried to steal from an empty vault)
     }
 }
 
