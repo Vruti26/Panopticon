@@ -1,0 +1,11 @@
+# Node dependencies
+node_modules/
+dist/
+
+# Foundry compiled files
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+
+# Security
+.env
