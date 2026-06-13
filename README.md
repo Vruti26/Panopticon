@@ -66,27 +66,35 @@ Want to run the simulation yourself? Follow these steps to boot the local enviro
 **1. Boot the Local Blockchain**
 
 # Start the Anvil node in Terminal 1
+```bash
 anvil 
-
+```
 2. Deploy the Infrastructure
 
-Bash
+
 # In Terminal 2, compile and deploy the vulnerable bank
+```bash 
 cd contracts
 forge build
 forge script script/Deploy.s.sol --rpc-url [http://127.0.0.1:8545](http://127.0.0.1:8545) --broadcast
+```
 3. Arm the Defense Engine
 
-Bash
 # In Terminal 3, initialize the monitoring bot
+
+```
 npm install
 npm run server
+```
+
 4. Simulate the Attack
 
-Bash
-# Back in Terminal 2, fire the exploit payload using a secondary Anvil account
-cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "brokenWithdraw(uint256)" 20000000000000000000 --private-key <ATTACKER_PRIVATE_KEY>
 
+# Back in Terminal 2, fire the exploit payload using a secondary Anvil account
+
+```
+cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "brokenWithdraw(uint256)" 20000000000000000000 --private-key <ATTACKER_PRIVATE_KEY>
+```
 
 🔮 Future Scope & Upgrades
 While this PoC relies on public mempool visibility, modern Ethereum attackers utilize private transaction relays (like Flashbots). The next iteration of this architecture will involve:
