@@ -61,7 +61,32 @@ Instead of waiting for an attack to confirm, Panopticon monitors the pending tra
 
 ## 💻 Local Setup & Execution Guide
 
-Want to run the simulation yourself? Follow these steps to boot the local environment.
+
+***The Installation Script**
+Open your terminal (Linux, macOS, or WSL on Windows) and paste these commands one by one:
+
+Bash
+# 1. Download the Foundry upgrader tool
+```curl -L https://foundry.paradigm.xyz | bash```
+
+# 2. Reload your terminal configuration so it recognizes the new tool
+```source ~/.bashrc```
+
+# 3. Install the actual binaries (Forge, Anvil, Cast, Chisel)
+```foundryup```
+(Note: If you are using a Mac with Zsh instead of Bash, use source ~/.zshrc for step 2).
+
+
+
+Verify the Installation
+To make sure everything worked perfectly, run these two commands to check the version numbers:
+
+Bash
+```
+forge --version
+anvil --version
+```
+-------
 
 **1. Boot the Local Blockchain**
 
@@ -96,7 +121,7 @@ npm run server
 cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "brokenWithdraw(uint256)" 20000000000000000000 --private-key <ATTACKER_PRIVATE_KEY>
 ```
 
-🔮 Future Scope & Upgrades
+ ***Future Scope & Upgrades***
 While this PoC relies on public mempool visibility, modern Ethereum attackers utilize private transaction relays (like Flashbots). The next iteration of this architecture will involve:
 
 **Flashbots Integration: Utilizing private relays for the rescue transaction to prevent gas-war escalation.**
