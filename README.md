@@ -121,7 +121,7 @@ npm run server
 cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "brokenWithdraw(uint256)" 20000000000000000000 --private-key <ATTACKER_PRIVATE_KEY>
 ```
 
- ***Future Scope & Upgrades***
+ **Future Scope & Upgrades**
 While this PoC relies on public mempool visibility, modern Ethereum attackers utilize private transaction relays (like Flashbots). The next iteration of this architecture will involve:
 
 **Flashbots Integration: Utilizing private relays for the rescue transaction to prevent gas-war escalation.**
